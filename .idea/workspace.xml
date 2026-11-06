@@ -34,7 +34,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/Zheka1997h/Reborn98.git",
+    "url": "https://github.com/Zheka1997h/test_project_11.git",
     "accountId": "c6a668fe-7c30-42c9-b723-f8947e0947c0"
   }
 }]]></component>
@@ -98,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793964994355</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Home_work_15">
+      <option name="closed" value="true" />
+      <created>1793965372656</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1793965372656</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
