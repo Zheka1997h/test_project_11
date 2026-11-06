@@ -1,0 +1,30 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}{{ post.title }} - Блог{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'blog:post_list' %}" class="back-link">← Вернуться к блогу</a>
+
+    <article class="post-detail">
+        {% if post.preview %}
+            <img src="{{ post.preview.url }}" alt="{{ post.title }}" class="post-detail-image">
+        {% endif %}
+
+        <h1>{{ post.title }}</h1>
+        <p class="post-meta">
+            📅 {{ post.created_at|date:"d.m.Y H:i" }} |
+            👁 Просмотров: {{ post.views_count }}
+        </p>
+
+        <div class="post-content">
+            {{ post.content|linebreaks }}
+        </div>
+
+        <div class="post-actions">
+            <a href="{% url 'blog:post_update' post.pk %}" class="btn-edit">✏️ Редактировать</a>
+            <a href="{% url 'blog:post_delete' post.pk %}" class="btn-delete">🗑 Удалить</a>
+        </div>
+    </article>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Удалить статью - Блог{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Удалить статью</h1>
+
+    <div class="confirm-delete">
+        <p>Вы уверены, что хотите удалить статью <strong>"{{ post.title }}"</strong>?</p>
+        <p>Это действие нельзя отменить.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-delete">Да, удалить</button>
+            <a href="{% url 'blog:post_detail' post.pk %}" class="btn-cancel">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

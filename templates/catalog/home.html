@@ -1,0 +1,45 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Главная - Магазин{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Каталог товаров</h1>
+
+    {% if products %}
+        <div class="products-grid">
+            {% for product in products %}
+                <div class="product-card">
+                    <a href="{% url 'catalog:product_detail' product.pk %}">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                        {% else %}
+                            <div class="product-image-placeholder">Нет изображения</div>
+                        {% endif %}
+
+                        <h2>{{ product.name }}</h2>
+                        <p class="product-description">{{ product.description|truncatechars:100 }}</p>
+                        <p class="product-category">Категория: {{ product.category.name }}</p>
+                        <p class="product-price">Цена: {{ product.price }} ₽</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {# Пагинация (доп. задание) #}
+        <div class="pagination">
+            {% if products.has_previous %}
+                <a href="?page={{ products.previous_page_number }}">← Назад</a>
+            {% endif %}
+
+            <span>Страница {{ products.number }} из {{ products.paginator.num_pages }}</span>
+
+            {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}">Вперёд →</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p class="no-products">Продукты пока не добавлены.</p>
+    {% endif %}
+</div>
+{% endblock %}

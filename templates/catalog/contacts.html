@@ -1,0 +1,24 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Контакты - Магазин{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Контакты</h1>
+
+    {% if contacts %}
+        <div class="contacts-list">
+            {% for contact in contacts %}
+                <div class="contact-card">
+                    <h2>{{ contact.name }}</h2>
+                    <p class="contact-email">Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                    <p class="contact-message">{{ contact.message }}</p>
+                    <p class="contact-date">Дата: {{ contact.created_at|date:"d.m.Y H:i" }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-contacts">Контакты пока не добавлены.</p>
+    {% endif %}
+</div>
+{% endblock %}

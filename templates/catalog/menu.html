@@ -1,0 +1,9 @@
+<nav>
+    <ul class="main-menu">
+        <li><a href="{% url 'catalog:home' %}">Главная</a></li>
+        <li><a href="{% url 'catalog:contacts' %}">Контакты</a></li>
+        <li><a href="{% url 'blog:post_list' %}">Блог</a></li>  {# ← НОВОЕ #}
+        <li><a href="{% url 'catalog:add_product' %}">Добавить товар</a></li>
+        <li><a href="/admin/">Админка</a></li>
+    </ul>
+</nav>
