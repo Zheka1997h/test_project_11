@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'catalog:home' %}">🛒 WebShop</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="{% url 'catalog:home' %}">Главная</a>
+            <a class="nav-link" href="{% url 'catalog:contacts' %}">Контакты</a>
+            <a class="nav-link" href="{% url 'blog:post_list' %}">Блог</a>
+            <a class="nav-link text-success" href="{% url 'blog:post_create' %}">+ Новая статья</a>
+            <a class="nav-link text-warning" href="/admin/">⚙️ Админка</a>
+        </div>
+    </div>
+</nav>

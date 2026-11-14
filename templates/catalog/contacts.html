@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Контакты - Магазин{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Контакты</h1>
+    {% if contacts %}
+        <div class="list-group">
+            {% for contact in contacts %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ contact.name }}</h5>
+                    <p class="mb-1"><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                    <p class="mb-1 bg-light p-2 rounded">{{ contact.message }}</p>
+                    <small class="text-muted">{{ contact.created_at|date:"d.m.Y H:i" }}</small>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="alert alert-info">Контакты пока не добавлены.</p>
+    {% endif %}
+</div>
+{% endblock %}
