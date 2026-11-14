@@ -31,3 +31,6 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('🎉 Данные успешно загружены!'))
         self.stdout.write(f'   Категорий в базе: {categories_count}')
         self.stdout.write(f'   Продуктов в базе: {products_count}')
+
+
+#############

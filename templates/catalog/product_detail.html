@@ -1,24 +1,59 @@
-{% extends 'catalog/base.html' %}
-
-{% block title %}{{ product.name }} - Магазин{% endblock %}
+{% extends 'base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <a href="{% url 'catalog:home' %}" class="back-link">← Вернуться к списку товаров</a>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-3">{{ product.name }}</h1>
 
-    <div class="product-detail">
-        {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-detail-image">
-        {% else %}
-            <div class="product-image-placeholder">Нет изображения</div>
-        {% endif %}
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid rounded mb-3" alt="{{ product.name }}" style="max-height: 400px; width: 100%; object-fit: cover;">
+            {% else %}
+                <div class="bg-light rounded mb-3 d-flex align-items-center justify-content-center" style="height: 300px;">Нет изображения</div>
+            {% endif %}
 
-        <h1>{{ product.name }}</h1>
-        <p class="product-category">Категория: {{ product.category.name }}</p>
-        <p class="product-description">{{ product.description }}</p>
-        <p class="product-price">Цена: {{ product.price }} ₽</p>
-        <p class="product-date">Добавлен: {{ product.created_at|date:"d.m.Y" }}</p>
-        <p class="product-date">Обновлён: {{ product.updated_at|date:"d.m.Y" }}</p>
+            {% if not product.is_published %}
+                <div class="alert alert-warning">⚠️ Этот продукт ещё не опубликован (ожидает модерации)</div>
+            {% endif %}
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="fs-5">{{ product.description|linebreaks }}</p>
+                    <hr>
+                    <p><strong>Категория:</strong> {{ product.category.name }}</p>
+                    <p><strong>Цена:</strong> <span class="text-success fs-4">{{ product.price }} ₽</span></p>
+                    <p><strong>Владелец:</strong> {{ product.owner.username|default:"—" }}</p>
+                    <p class="text-muted">
+                        <small>Добавлен: {{ product.created_at|date:"d.m.Y H:i" }} | Изменён: {{ product.updated_at|date:"d.m.Y H:i" }}</small>
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap">
+                {# Кнопка редактирования — только для владельца или модератора #}
+                {% if can_edit %}
+                    <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-warning">✏️ Редактировать</a>
+                {% endif %}
+
+                {# Кнопка удаления — только для владельца или модератора #}
+                {% if can_delete %}
+                    <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">🗑️ Удалить</a>
+                {% endif %}
+
+                {# Кнопка отмены публикации — только для модератора с правом #}
+                {% if can_unpublish and product.is_published %}
+                    <form method="post" action="{% url 'catalog:product_unpublish' product.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary" onclick="return confirm('Отменить публикацию продукта?')">
+                            🚫 Отменить публикацию
+                        </button>
+                    </form>
+                {% endif %}
+
+                <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary">← К списку</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

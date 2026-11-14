@@ -2,11 +2,11 @@ Django Shop — учебный проект интернет-магазина
 Учебный проект интернет-магазина на Django с подключением PostgreSQL, моделями продуктов и категорий, админ-панелью и кастомными командами управления.
 
 🚀 Технологии
-Python 3.10+
+Python 3.10++
 Django 4.2.7
 PostgreSQL — основная база данных
 psycopg2-binary — драйвер для PostgreSQL
-Pillow — работа с изображениями
+Pillow —- работа с изображениями
 ipython — улучшенная интерактивная оболочка
 python-dotenv — управление переменными окружения
 📁 Структура проекта
@@ -24,4 +24,4 @@ python -m venv .venv
 
 # Linux/Mac
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate 

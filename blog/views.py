@@ -1,74 +1,76 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Post
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Post
+
+
+def is_content_manager(user):
+    """Проверка: пользователь — контент-менеджер"""
+    return user.groups.filter(name='Контент-менеджер').exists()
+
+
+class ContentManagerRequiredMixin(LoginRequiredMixin):
+    """Миксин: доступ только для контент-менеджеров"""
+    login_url = 'users:login'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not is_content_manager(request.user):
+            messages.error(request, 'Доступ разрешён только контент-менеджерам.')
+            return redirect('blog:post_list')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class PostListView(ListView):
-    """Список блоговых записей (только опубликованные)"""
     model = Post
     template_name = 'blog/post_list.html'
     context_object_name = 'posts'
-    paginate_by = 5
 
     def get_queryset(self):
-        """Фильтрация: только опубликованные статьи"""
         return Post.objects.filter(is_published=True)
 
 
 class PostDetailView(DetailView):
-    """Детальная страница статьи + увеличение счётчика просмотров"""
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
 
     def get_object(self, queryset=None):
-        post = super().get_object(queryset)
-        post.views_count += 1
-        post.save(update_fields=['views_count'])
+        obj = super().get_object(queryset)
+        obj.view_count += 1
+        obj.save()
 
-        # Отправка письма при достижении 100 просмотров
-        if post.views_count == 100:
+        if obj.view_count == 100:
             send_mail(
-                subject=f'🎉 Статья "{post.title}" набрала 100 просмотров!',
-                message=f'Поздравляем! Статья "{post.title}" достигла 100 просмотров.',
+                subject='🎉 Поздравляем! Статья набрала 100 просмотров!',
+                message=f'Ваша статья "{obj.title}" только что достигла отметки в 100 просмотров.',
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.DEFAULT_FROM_EMAIL],
-                fail_silently=True,
+                recipient_list=[settings.ADMIN_EMAIL],
+                fail_silently=False,
             )
-
-        return post
-
-    def get_object(self, queryset=None):
-        """Переопределяем: увеличиваем views_count при просмотре"""
-        post = super().get_object(queryset)
-        post.views_count += 1
-        post.save(update_fields=['views_count'])
-        return post
+        return obj
 
 
-class PostCreateView(CreateView):
-    """Создание новой статьи"""
+class PostCreateView(ContentManagerRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'preview', 'is_published']
     template_name = 'blog/post_form.html'
+    fields = ['title', 'content', 'preview', 'is_published']
     success_url = reverse_lazy('blog:post_list')
 
 
-class PostUpdateView(UpdateView):
-    """Редактирование статьи"""
+class PostUpdateView(ContentManagerRequiredMixin, UpdateView):
     model = Post
-    fields = ['title', 'content', 'preview', 'is_published']
     template_name = 'blog/post_form.html'
+    fields = ['title', 'content', 'preview', 'is_published']
 
     def get_success_url(self):
-        """Перенаправление на страницу отредактированной статьи"""
         return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.pk})
 
 
-class PostDeleteView(DeleteView):
-    """Удаление статьи"""
+class PostDeleteView(ContentManagerRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'
     success_url = reverse_lazy('blog:post_list')

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Мой профиль{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">Мой профиль</h1>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Исправьте ошибки:</strong>
+                        <ul class="mb-0">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Имя пользователя
+                        {{ form.username }}
+                    </label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Email
+                        {{ form.email }}
+                    </label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Аватар</label>
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="Аватар" class="img-thumbnail mb-2 d-block" style="max-width: 150px;">
+                    {% endif %}
+                    {{ form.avatar }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Телефон
+                        {{ form.phone }}
+                    </label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Страна
+                        {{ form.country }}
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
