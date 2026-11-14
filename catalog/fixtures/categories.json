@@ -19,7 +19,7 @@
     "model": "catalog.category",
     "pk": 3,
     "fields": {
-      "name": "Книги",
+      "name": "Книга 2",
       "description": "Художественная и учебная литература"
     }
   }

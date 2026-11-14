@@ -1,43 +1,36 @@
-{% extends 'catalog/base.html' %}
-
-{% block title %}Блог - Магазин{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Каталог продуктов{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1>Блог</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Каталог продуктов</h1>
+        <a href="{% url 'catalog:product_create' %}" class="btn btn-success">+ Добавить продукт</a>
+    </div>
 
-    <a href="{% url 'blog:post_create' %}" class="btn-create">+ Новая статья</a>
-
-    {% if posts %}
-        <div class="posts-grid">
-            {% for post in posts %}
-                <article class="post-card">
-                    {% if post.preview %}
-                        <img src="{{ post.preview.url }}" alt="{{ post.title }}" class="post-image">
-                    {% else %}
-                        <div class="post-image-placeholder">Нет изображения</div>
-                    {% endif %}
-
-                    <h2>{{ post.title }}</h2>
-                    <p class="post-date">Опубликовано: {{ post.created_at|date:"d.m.Y" }}</p>
-                    <p class="post-views">👁 Просмотров: {{ post.views_count }}</p>
-                    <a href="{% url 'blog:post_detail' post.pk %}" class="btn-read">Читать далее →</a>
-                </article>
+    {% if products %}
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">Нет изображения</div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-muted">{{ product.description|truncatewords:15 }}</p>
+                            <p class="card-text"><strong>Категория:</strong> {{ product.category.name }}</p>
+                            <p class="card-text text-success fs-5">{{ product.price }} ₽</p>
+                            <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-primary btn-sm">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
         </div>
-
-        {# Пагинация #}
-        <div class="pagination">
-            {% if posts.has_previous %}
-                <a href="?page={{ posts.previous_page_number }}">← Назад</a>
-            {% endif %}
-            <span>Страница {{ posts.number }} из {{ posts.paginator.num_pages }}</span>
-            {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">Вперёд →</a>
-            {% endif %}
-        </div>
     {% else %}
-        <p class="no-posts">Статьи пока не опубликованы.</p>
+        <div class="alert alert-info">Продуктов пока нет. <a href="{% url 'catalog:product_create' %}">Добавить первый</a>.</div>
     {% endif %}
 </div>
 {% endblock %}
