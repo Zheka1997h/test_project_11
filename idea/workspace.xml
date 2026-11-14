@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8e9029b8-e63a-4223-937f-28b3bb218592" name="Changes" comment="Home_work_1_10">
+      <change afterPath="$PROJECT_DIR$/catalog/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/catalog/add_product.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/catalog/menu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/catalog/product_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/catalog/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/catalog/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/catalog/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/catalog/home.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Zheka1997h&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Zheka1997h/Django_repository.git&quot;,
+    &quot;accountId&quot;: &quot;c6a668fe-7c30-42c9-b723-f8947e0947c0&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3KEDJAEfPk8MJ6fvQvrinRnxGZS" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "Home__work__1__2",
+    "last_opened_file_path": "C:/Users/Zheka1998/PycharmProjects/Django_Project/screenshots",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.language"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Zheka1998\PycharmProjects\Django_Project\screenshots" />
+      <recent name="C:\Users\Zheka1998\PycharmProjects\Django_Project" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Zheka1998\PycharmProjects\Django_Project\catalog" />
+      <recent name="C:\Users\Zheka1998\PycharmProjects\Django_Project\templates\catalog" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-c59985aa861c-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.24374.152" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8e9029b8-e63a-4223-937f-28b3bb218592" name="Changes" comment="" />
+      <created>1791113760682</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1791113760682</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Home_work_1_3">
+      <option name="closed" value="true" />
+      <created>1791199989489</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1791199989489</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Home_work_1_3">
+      <option name="closed" value="true" />
+      <created>1791205092632</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1791205092632</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Home_work_1_8">
+      <option name="closed" value="true" />
+      <created>1792849324374</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1792849324374</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Home_work_1_8">
+      <option name="closed" value="true" />
+      <created>1792856725504</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1792856725504</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Home_work_1_10">
+      <option name="closed" value="true" />
+      <created>1792860284492</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1792860284492</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Home_work_1_3" />
+    <MESSAGE value="Home_work_1_8" />
+    <MESSAGE value="Home_work_1_10" />
+    <option name="LAST_COMMIT_MESSAGE" value="Home_work_1_10" />
+  </component>
+</project>
