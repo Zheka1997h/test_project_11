@@ -1,45 +1,18 @@
-{% extends 'catalog/base.html' %}
-
-{% block title %}Главная - Магазин{% endblock %}
-
-{% block content %}
-<div class="container">
-    <h1>Каталог товаров</h1>
-
-    {% if products %}
-        <div class="products-grid">
-            {% for product in products %}
-                <div class="product-card">
-                    <a href="{% url 'catalog:product_detail' product.pk %}">
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
-                        {% else %}
-                            <div class="product-image-placeholder">Нет изображения</div>
-                        {% endif %}
-
-                        <h2>{{ product.name }}</h2>
-                        <p class="product-description">{{ product.description|truncatechars:100 }}</p>
-                        <p class="product-category">Категория: {{ product.category.name }}</p>
-                        <p class="product-price">Цена: {{ product.price }} ₽</p>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-
-        {# Пагинация (доп. задание) #}
-        <div class="pagination">
-            {% if products.has_previous %}
-                <a href="?page={{ products.previous_page_number }}">← Назад</a>
-            {% endif %}
-
-            <span>Страница {{ products.number }} из {{ products.paginator.num_pages }}</span>
-
-            {% if products.has_next %}
-                <a href="?page={{ products.next_page_number }}">Вперёд →</a>
-            {% endif %}
-        </div>
+<div class="card h-100">
+    {% if product.image %}
+        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
     {% else %}
-        <p class="no-products">Продукты пока не добавлены.</p>
+        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">Нет изображения</div>
     {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text text-muted">{{ product.description|truncatewords:15 }}</p>
+        <p class="card-text"><strong>Категория:</strong> {{ product.category.name }}</p>
+        <p class="card-text text-success fs-5">{{ product.price }} ₽</p>
+    </div>
+    <div class="card-footer bg-white border-0 d-flex gap-1">
+        <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-primary btn-sm flex-fill">Подробнее</a>
+        <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-warning btn-sm">✏️</a>
+        <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger btn-sm">🗑️</a>
+    </div>
 </div>
-{% endblock %}

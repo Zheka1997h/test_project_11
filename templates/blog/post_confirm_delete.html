@@ -1,20 +1,21 @@
-{% extends 'catalog/base.html' %}
-
-{% block title %}Удалить статью - Блог{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Удаление продукта{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1>Удалить статью</h1>
-
-    <div class="confirm-delete">
-        <p>Вы уверены, что хотите удалить статью <strong>"{{ post.title }}"</strong>?</p>
-        <p>Это действие нельзя отменить.</p>
-
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn-delete">Да, удалить</button>
-            <a href="{% url 'blog:post_detail' post.pk %}" class="btn-cancel">Отмена</a>
-        </form>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-danger">
+                <h3>⚠️ Вы уверены, что хотите удалить продукт?</h3>
+                <p class="fw-bold fs-5">"{{ product.name }}"</p>
+                <p class="text-muted">Это действие нельзя отменить.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Да, удалить</button>
+                    <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-outline-dark">Отмена</a>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
