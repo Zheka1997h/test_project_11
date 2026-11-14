@@ -13,24 +13,46 @@
                 <div class="bg-light rounded mb-3 d-flex align-items-center justify-content-center" style="height: 300px;">Нет изображения</div>
             {% endif %}
 
+            {% if not product.is_published %}
+                <div class="alert alert-warning">⚠️ Этот продукт ещё не опубликован (ожидает модерации)</div>
+            {% endif %}
+
             <div class="card mb-3">
                 <div class="card-body">
                     <p class="fs-5">{{ product.description|linebreaks }}</p>
                     <hr>
                     <p><strong>Категория:</strong> {{ product.category.name }}</p>
                     <p><strong>Цена:</strong> <span class="text-success fs-4">{{ product.price }} ₽</span></p>
-                    <p class="text-muted"><small>Добавлен: {{ product.created_at|date:"d.m.Y H:i" }} | Изменён: {{ product.updated_at|date:"d.m.Y H:i" }}</small></p>
+                    <p><strong>Владелец:</strong> {{ product.owner.username|default:"—" }}</p>
+                    <p class="text-muted">
+                        <small>Добавлен: {{ product.created_at|date:"d.m.Y H:i" }} | Изменён: {{ product.updated_at|date:"d.m.Y H:i" }}</small>
+                    </p>
                 </div>
             </div>
 
-            {% if user.is_authenticated %}
-                <div class="d-flex gap-2">
+            <div class="d-flex gap-2 flex-wrap">
+                {# Кнопка редактирования — только для владельца или модератора #}
+                {% if can_edit %}
                     <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-warning">✏️ Редактировать</a>
-                    <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">🗑️ Удалить</a>
-                </div>
-            {% endif %}
+                {% endif %}
 
-            <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary mt-2">← К списку</a>
+                {# Кнопка удаления — только для владельца или модератора #}
+                {% if can_delete %}
+                    <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">🗑️ Удалить</a>
+                {% endif %}
+
+                {# Кнопка отмены публикации — только для модератора с правом #}
+                {% if can_unpublish and product.is_published %}
+                    <form method="post" action="{% url 'catalog:product_unpublish' product.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary" onclick="return confirm('Отменить публикацию продукта?')">
+                            🚫 Отменить публикацию
+                        </button>
+                    </form>
+                {% endif %}
+
+                <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary">← К списку</a>
+            </div>
         </div>
     </div>
 </div>

@@ -18,4 +18,4 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'created_at')
 
 
-########
+#############

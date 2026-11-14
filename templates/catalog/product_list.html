@@ -25,6 +25,7 @@
                             <p class="card-text text-muted">{{ product.description|truncatewords:15 }}</p>
                             <p class="card-text"><strong>Категория:</strong> {{ product.category.name }}</p>
                             <p class="card-text text-success fs-5">{{ product.price }} ₽</p>
+                            <p class="card-text"><small class="text-muted">Владелец: {{ product.owner.username|default:"—" }}</small></p>
                         </div>
                         <div class="card-footer bg-white border-0">
                             <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-primary btn-sm w-100">Подробнее</a>
@@ -34,7 +35,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <div class="alert alert-info">Продуктов пока нет.</div>
+        <div class="alert alert-info">Опубликованных продуктов пока нет.</div>
     {% endif %}
 </div>
 {% endblock %}

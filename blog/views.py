@@ -2,7 +2,26 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post
+
+
+def is_content_manager(user):
+    """Проверка: пользователь — контент-менеджер"""
+    return user.groups.filter(name='Контент-менеджер').exists()
+
+
+class ContentManagerRequiredMixin(LoginRequiredMixin):
+    """Миксин: доступ только для контент-менеджеров"""
+    login_url = 'users:login'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not is_content_manager(request.user):
+            messages.error(request, 'Доступ разрешён только контент-менеджерам.')
+            return redirect('blog:post_list')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class PostListView(ListView):
@@ -11,7 +30,6 @@ class PostListView(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        # Фильтрация: только опубликованные
         return Post.objects.filter(is_published=True)
 
 
@@ -22,12 +40,9 @@ class PostDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-
-        # Увеличение счетчика
         obj.view_count += 1
         obj.save()
 
-        # ДОПОЛНИТЕЛЬНОЕ ЗАДАНИЕ: Письмо при 100 просмотрах
         if obj.view_count == 100:
             send_mail(
                 subject='🎉 Поздравляем! Статья набрала 100 просмотров!',
@@ -39,26 +54,23 @@ class PostDetailView(DetailView):
         return obj
 
 
-class PostCreateView(CreateView):
+class PostCreateView(ContentManagerRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_form.html'
     fields = ['title', 'content', 'preview', 'is_published']
     success_url = reverse_lazy('blog:post_list')
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(ContentManagerRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_form.html'
     fields = ['title', 'content', 'preview', 'is_published']
 
     def get_success_url(self):
-        # Перенаправление на  страницу отредактированной статьи
         return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.pk})
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(ContentManagerRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'
     success_url = reverse_lazy('blog:post_list')
-
-####

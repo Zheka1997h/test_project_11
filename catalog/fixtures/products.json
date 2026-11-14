@@ -42,7 +42,7 @@
     "model": "catalog.product",
     "pk": 4,
     "fields": {
-      "name": "Война и миры 1",
+      "name": "Война и миры 12",
       "description": "Классический роман Льва Толстого",
       "image": "",
       "category": 3,
