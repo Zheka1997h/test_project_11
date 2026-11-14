@@ -83,3 +83,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Вывод писем в консоль PyCharm
 DEFAULT_FROM_EMAIL = 'noreply@myshop.com'
 ADMIN_EMAIL = 'admin@myshop.com'
+####

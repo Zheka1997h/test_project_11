@@ -52,7 +52,7 @@ class PostUpdateView(UpdateView):
     fields = ['title', 'content', 'preview', 'is_published']
 
     def get_success_url(self):
-        # Перенаправление на страницу отредактированной статьи
+        # Перенаправление на  страницу отредактированной статьи
         return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.pk})
 
 
