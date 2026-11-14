@@ -1,30 +1,24 @@
-{% extends 'catalog/base.html' %}
-
-{% block title %}{{ post.title }} - Блог{% endblock %}
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <a href="{% url 'blog:post_list' %}" class="back-link">← Вернуться к блогу</a>
-
-    <article class="post-detail">
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-3">{{ post.title }}</h1>
         {% if post.preview %}
-            <img src="{{ post.preview.url }}" alt="{{ post.title }}" class="post-detail-image">
+            <img src="{{ post.preview.url }}" class="img-fluid rounded mb-3" alt="{{ post.title }}">
         {% endif %}
-
-        <h1>{{ post.title }}</h1>
-        <p class="post-meta">
-            📅 {{ post.created_at|date:"d.m.Y H:i" }} |
-            👁 Просмотров: {{ post.views_count }}
+        <p class="text-muted mb-4">
+            📅 {{ post.created_at|date:"d.m.Y" }} | 👁️ Просмотров: {{ post.view_count }}
         </p>
-
-        <div class="post-content">
+        <div class="fs-5 mb-4" style="line-height: 1.6;">
             {{ post.content|linebreaks }}
         </div>
-
-        <div class="post-actions">
-            <a href="{% url 'blog:post_update' post.pk %}" class="btn-edit">✏️ Редактировать</a>
-            <a href="{% url 'blog:post_delete' post.pk %}" class="btn-delete">🗑 Удалить</a>
+        <div class="d-flex gap-2">
+            <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-warning">Редактировать</a>
+            <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'blog:post_list' %}" class="btn btn-outline-secondary">К списку</a>
         </div>
-    </article>
+    </div>
 </div>
 {% endblock %}

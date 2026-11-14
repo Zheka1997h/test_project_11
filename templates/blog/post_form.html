@@ -1,29 +1,38 @@
-{% extends 'catalog/base.html' %}
-
-{% block title %}{{ form.instance.pk|yesno:"Редактировать,Создать" }} статью - Блог{% endblock %}
+{% extends 'base.html' %}
+{% block title %}{% if form.instance.pk %}Редактирование{% else %}Создание{% endif %} статьи{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>{{ form.instance.pk|yesno:"Редактировать статью,Новая статья" }}</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">{% if form.instance.pk %}Редактировать{% else %}Создать{% endif %} статью</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
 
-    <form method="post" enctype="multipart/form-data" class="post-form">
-        {% csrf_token %}
-
-        {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <ul class="errors">
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+            <div class="mb-3">
+                {{ form.title.label_tag }}
+                {{ form.title }}
             </div>
-        {% endfor %}
 
-        <button type="submit" class="btn-submit">Сохранить</button>
-    </form>
+            <div class="mb-3">
+                {{ form.content.label_tag }}
+                {{ form.content }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.preview.label_tag }}
+                {{ form.preview }}
+            </div>
+
+            <div class="mb-3 form-check">
+                <label class="form-check-label">
+                    {{ form.is_published }}
+                    Опубликовать сразу
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
 </div>
 {% endblock %}
