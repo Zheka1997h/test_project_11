@@ -6,8 +6,14 @@
             <a class="nav-link" href="{% url 'catalog:product_list' %}">📦 Каталог</a>
             <a class="nav-link" href="{% url 'catalog:contacts' %}">Контакты</a>
             <a class="nav-link" href="{% url 'blog:post_list' %}">Блог</a>
-            <a class="nav-link text-success" href="{% url 'blog:post_create' %}">+ Статья</a>
-            <a class="nav-link text-warning" href="/admin/">⚙️ Админка</a>
+
+            {% if user.is_authenticated %}
+                <a class="nav-link text-warning" href="{% url 'users:profile' %}">👤 {{ user.username }}</a>
+                <a class="nav-link text-danger" href="{% url 'users:logout' %}">Выйти</a>
+            {% else %}
+                <a class="nav-link text-success" href="{% url 'users:register' %}">Регистрация</a>
+                <a class="nav-link text-info" href="{% url 'users:login' %}">Войти</a>
+            {% endif %}
         </div>
     </div>
 </nav>

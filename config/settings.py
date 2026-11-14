@@ -11,6 +11,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'users',  # ВАЖНО: Должно быть ПЕРВЫМ, до django.contrib.auth, для кастомной модели
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -18,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog',
-    'blog',  # <-- Добавлено приложение блога
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -73,14 +74,29 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# Настройки для медиафайлов (изображений)
+# Настройки для медиафайлов (изображений аватаров и товаров)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Настройки почты для ДОПОЛНИТЕЛЬНОГО ЗАДАНИЯ
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Вывод писем в консоль PyCharm
-DEFAULT_FROM_EMAIL = 'noreply@myshop.com'
-ADMIN_EMAIL = 'admin@myshop.com'
-####
+
+# ==========================================
+# НАСТРОЙКИ АВТОРИЗАЦИИ И ПОЛЬЗОВАТЕЛЕЙ
+# ==========================================
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Куда перенаправлять неавторизованных и после входа/выхода
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'catalog:product_list'
+LOGOUT_REDIRECT_URL = 'catalog:home'
+
+
+# ==========================================
+# НАСТРОЙКИ ПОЧТЫ
+# (Используется для приветственного письма при регистрации
+#  и для доп. задания про 100 просмотров в блоге)
+# ==========================================
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Вывод писем в консоль PyCharm
+DEFAULT_FROM_EMAIL = 'noreply@webshop.com'
+ADMIN_EMAIL = 'admin@webshop.com'  # Адрес, куда придет письмо о 100 просмотрах

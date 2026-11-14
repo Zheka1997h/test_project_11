@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Product, Contact
 from .forms import ProductForm
 
 
-# ====== Старые контроллеры (не трогаем) ======
 class HomeView(ListView):
     model = Product
     template_name = 'catalog/home.html'
@@ -28,32 +29,33 @@ class ContactsView(TemplateView):
         return context
 
 
-# ====== НОВЫЕ CRUD-контроллеры для продуктов ======
 class ProductListView(ListView):
-    """Список всех продуктов"""
+    """Список всех продуктов — ДОСТУПЕН ВСЕМ (критерий)"""
     model = Product
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
-    paginate_by = 6  # опционально: постраничная навигация
 
 
+@method_decorator(login_required, name='dispatch')
 class ProductDetailView(DetailView):
-    """Детальная страница продукта"""
+    """Детальная страница — только для авторизованных"""
     model = Product
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
 
 
+@method_decorator(login_required, name='dispatch')
 class ProductCreateView(CreateView):
-    """Создание нового продукта"""
+    """Создание — только для авторизованных"""
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:product_list')
 
 
+@method_decorator(login_required, name='dispatch')
 class ProductUpdateView(UpdateView):
-    """Редактирование продукта"""
+    """Редактирование — только для авторизованных"""
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
@@ -62,8 +64,9 @@ class ProductUpdateView(UpdateView):
         return reverse_lazy('catalog:product_detail', kwargs={'pk': self.object.pk})
 
 
+@method_decorator(login_required, name='dispatch')
 class ProductDeleteView(DeleteView):
-    """Удаление продукта"""
+    """Удаление — только для авторизованных"""
     model = Product
     template_name = 'catalog/product_confirm_delete.html'
     success_url = reverse_lazy('catalog:product_list')

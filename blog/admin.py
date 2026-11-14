@@ -5,4 +5,4 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'is_published', 'view_count')
     list_filter = ('is_published', 'created_at')
-####
+########

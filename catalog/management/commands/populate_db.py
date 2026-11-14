@@ -33,4 +33,4 @@ class Command(BaseCommand):
         self.stdout.write(f'   Продуктов в базе: {products_count}')
 
 
-####
+########

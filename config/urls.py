@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('catalog.urls')),
     path('blogs/', include('blog.urls', namespace='blog')), # <-- Подключение блога
+    path('users/', include('users.urls')),
 ]
 
 if settings.DEBUG:
